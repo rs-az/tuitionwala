@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* nav horizontal header active */
+.active {
+	@apply bg-blue-500 rounded px-3 py-2;
+}
+
+/* nav horizontal header active */
+.active-head {
+	@apply bg-blue-500;
+}
+
+/* job carousel */
+
+@keyframes scroll {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(calc(-250px * 7));
+	}
+}
+
+.slider {
+	height: 200px;
+	overflow: hidden;
+	position: relative;
+}
+
+.slider::before,
+.slider::after {
+	content: "";
+	position: absolute;
+	width: 200px;
+}
+.slider::after {
+	right: 0;
+	top: 0;
+	transform: rotateZ(180deg);
+}
+
+.slider::before {
+	left: 0;
+	top: 0;
+}
+.slide-track {
+	animation: scroll 40s linear infinite;
+	display: flex;
+	width: calc(250px * 14);
+}
+.slide-track:hover {
+	animation-play-state: paused;
+}
+.slider .slide {
+	height: 175px;
+	width: 250px;
+}
