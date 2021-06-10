@@ -30,8 +30,8 @@ const Terms = () => {
     'TuitionWala may contact me over voice, Email or SMS for the purpose of informing me about services offered by TuitionWala',
   ];
   return (
-    <div className='bg-blue-300 py-6'>
-      <div className='grid gap-10 place-content-center w-3/4 mx-auto text-lg bg-white py-4 px-4'>
+    <div className='bg-blue-300 py-6 w-full'>
+      <div className='grid gap-10 place-content-center w-full lg:w-3/4 lg:mx-auto text-lg bg-white py-4 px-4'>
         <h1 className='text-2xl font-semibold text-center'>
           Terms & Conditions
         </h1>

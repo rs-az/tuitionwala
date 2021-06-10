@@ -20,7 +20,7 @@ const Jobs = () => {
 
   return (
     <div className='bg-blue-300 py-8 flex flex-col items-center'>
-      <div className='flex bg-white flex-col w-3/4 mx-auto space-y-2 my-3 items-center'>
+      <div className='flex bg-white flex-col w-full lg:w-3/4 mx-2 space-y-2 my-3 items-center'>
         <div className='flex justify-center p-3'>
           <h1 className='text-lg font-semibold'>
             Showing Jobs in Delhi & Lucknow

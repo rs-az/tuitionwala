@@ -74,8 +74,8 @@ const privacy = () => {
     },
   ];
   return (
-    <div className='bg-blue-300 py-6'>
-      <div className='grid gap-10 place-content-center w-3/4 mx-auto text-lg bg-white py-4 px-4'>
+    <div className='bg-blue-300 py-6 w-full '>
+      <div className='flex flex-col space-y-10 justify-center w-full lg:w-3/4 lg:mx-auto text-lg bg-white py-4 px-4'>
         <h1 className='text-2xl font-semibold text-center'>Privacy-Policy</h1>
         <p className='font-semibold text-center'>
           This Privacy Policy governs the manner in which TuitionWala collects,

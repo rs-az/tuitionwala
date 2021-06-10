@@ -2,8 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 const AboutUs = () => {
   return (
-    <div className='bg-blue-300 py-6'>
-      <div className='grid gap-6 place-content-center w-3/4 mx-auto text-xl bg-white py-4 px-4'>
+    <div className='bg-blue-300 py-6 w-full'>
+      <div className='grid gap-6 place-content-center w-full lg:w-3/4 lg:mx-auto text-xl bg-white py-4 px-4'>
         <p>
           TuitionWala is a portal for both students/parents seeking top-quality
           tuition teachers, as well as tuition teachers looking for consistent,
