@@ -1,12 +1,15 @@
-import Layout from "../components/Layout";
-import "../styles/globals.css";
+import Layout from '../components/Layout';
+import { AuthProvider } from '../firebase/auth';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
-	return (
-		<Layout>
-			<Component {...pageProps} />
-		</Layout>
-	);
+  return (
+    <AuthProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthProvider>
+  );
 }
 
 export default MyApp;
