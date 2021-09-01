@@ -6,18 +6,20 @@ import firebaseClient from '../firebase/firebaseClient';
 import { useState } from 'react';
 import firebase from 'firebase/app';
 import Alert from '../components/Alert';
-
+import { useRouter } from 'next/router';
 const Login = () => {
   firebaseClient();
+  const router = useRouter();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
   async function submit() {
+    // store();
     await firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)
       .then(function () {
-        window.location.href = '/';
+        router.push('/');
       })
       .catch(function (error) {
         console.log(error);
@@ -32,7 +34,7 @@ const Login = () => {
       .then((result) => {
         const credentials = result.credential;
         console.log(credentials);
-        window.location.href = '/';
+        router.push('/');
       })
       .catch(function (error) {
         console.log(error);
@@ -47,7 +49,7 @@ const Login = () => {
       .then((result) => {
         const credentials = result.credential;
         console.log(credentials);
-        window.location.href = '/';
+        router.push('/');
       })
       .catch(function (error) {
         console.log(error);
@@ -56,7 +58,7 @@ const Login = () => {
 
   return (
     <>
-      <Alert />
+      {/* <Alert message='There is an error' color='green' /> */}
       <div className='bg-gradient-to-b from-blue-300 to-pink-200 flex flex-col w-full mx-auto md:flex-row justify-around items-center py-12'>
         <img src='./images/login.png' alt='' />
 

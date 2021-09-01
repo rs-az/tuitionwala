@@ -1,4 +1,5 @@
 import Services from './Services';
+import Image from 'next/image';
 
 const Hero = () => {
   return (
@@ -14,7 +15,13 @@ const Hero = () => {
             Hire Tutor
           </a>
         </div>
-        <img src='./images/hero.png' alt='hero' className='hidden md:flex' />
+        <Image
+          src='/images/eriksha-trans.png'
+          alt='hero'
+          className='hidden md:flex'
+          height='300'
+          width='300'
+        />
       </main>
       <Services />
     </>
