@@ -11,10 +11,10 @@ const Layout = ({ children }) => {
   return (
     <>
       <SiteMaintenance />
-      <Header />
+      {/* <Header /> */}
       {children}
-      {showHeader && <JobCarousel />}
-      <Footer />
+      {/* {showHeader && <JobCarousel />} */}
+      {/* <Footer /> */}
     </>
   );
 };

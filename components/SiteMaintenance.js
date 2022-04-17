@@ -18,7 +18,7 @@ const SiteMaintenance = () => {
     //     />
     //   </svg>
     // </span>
-    <div className='grid place-items-center text-2xl bg-blue-500'>
+    <div className='grid place-items-center text-2xl bg-gray-100'>
       <h1>This site is in maintenance for further inquiries please contact.</h1>
       <div className='inline-flex items-center text-4xl font-medium text-red-900 hover:underline cursor-pointer'>
         <svg
