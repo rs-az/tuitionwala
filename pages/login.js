@@ -1,11 +1,9 @@
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Image from 'next/image';
 import Link from 'next/link';
 import firebaseClient from '../firebase/firebaseClient';
 import { useState } from 'react';
 import firebase from 'firebase/app';
-import Alert from '../components/Alert';
 import { useRouter } from 'next/router';
 const Login = () => {
   firebaseClient();
