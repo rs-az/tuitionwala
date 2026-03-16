@@ -1,0 +1,161 @@
+.page-container {
+    padding: 8rem 0 4rem 0;
+    min-height: calc(100vh - 300px);
+    /* Account for navbar and footer roughly */
+    background-color: var(--background);
+}
+
+.book-demo-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.book-demo-content .badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--text-main);
+    letter-spacing: -1px;
+}
+
+.page-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.5rem 0;
+}
+
+.benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    color: var(--text-main);
+}
+
+.benefits-list i {
+    color: var(--success, #10b981);
+    font-size: 1.25rem;
+}
+
+.contact-quick {
+    padding: 1.5rem;
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.contact-quick p {
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.form-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--border);
+}
+
+.form-card h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    color: var(--text-main);
+    text-align: center;
+}
+
+.demo-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.demo-form .form-group.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.demo-form label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.demo-form input,
+.demo-form select,
+.demo-form textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background-color: var(--surface);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all var(--transition-short);
+}
+
+.demo-form input:focus,
+.demo-form select:focus,
+.demo-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+    background-color: white;
+}
+
+.btn-full {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.125rem;
+}
+
+@media (max-width: 992px) {
+    .book-demo-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .demo-form .form-group.row {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-card {
+        padding: 1.5rem;
+    }
+
+    .page-container {
+        padding: 6rem 0 3rem 0;
+    }
+}
