@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Courses.css';
 
 const Courses = () => {
@@ -61,14 +62,16 @@ const Courses = () => {
                                 <span className="course-level" style={{ color: course.color }}>{course.level}</span>
                                 <h3 className="course-title">{course.title}</h3>
                                 <p className="course-subjects">{course.subjects}</p>
-                                <button className="btn btn-outline-primary course-btn">View Details Options &rarr;</button>
+                                <Link className="btn btn-outline-primary course-btn" to="/explore-subjects">
+                                    View Details &rarr;
+                                </Link>
                             </div>
                         </div>
                     ))}
                 </div>
 
                 <div className="text-center mt-xl">
-                    <button className="btn btn-primary">Explore All Courses</button>
+                    <Link className="btn btn-primary" to="/explore-subjects">Explore All Courses</Link>
                 </div>
             </div>
         </section>

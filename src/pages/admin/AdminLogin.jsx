@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAdminAuth } from '../../context/AdminAuthContext';
+import PasswordInput from '../../components/PasswordInput';
 import './AdminLogin.css';
 
 const AdminLogin = ({ onSuccess }) => {
@@ -58,8 +59,7 @@ const AdminLogin = ({ onSuccess }) => {
                         <label htmlFor="password">
                             <i className="fas fa-lock"></i> Password
                         </label>
-                        <input
-                            type="password"
+                        <PasswordInput
                             id="password"
                             name="password"
                             value={form.password}
@@ -67,6 +67,7 @@ const AdminLogin = ({ onSuccess }) => {
                             placeholder="Enter admin password"
                             required
                             autoComplete="current-password"
+                            variant="dark"
                         />
                     </div>
 

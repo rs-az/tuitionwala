@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import heroImage from '../assets/hero-tuitionwala.png';
 import './Hero.css';
 
 const Hero = () => {
@@ -38,8 +39,10 @@ const Hero = () => {
                 <div className="hero-image-wrapper">
                     <div className="hero-shape"></div>
                     <img
-                        src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                        alt="Students learning online"
+                        src={heroImage}
+                        // Previous Unsplash hero (kept for comparison):
+                        // src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Group tuition and home tuition with TuitionWala"
                         className="hero-image animate-float"
                     />
                     <div className="floating-card card-1 animate-float" style={{ animationDelay: '1s' }}>

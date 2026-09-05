@@ -140,6 +140,24 @@ button {
   transform: translateY(-2px);
 }
 
+.btn-outline-primary {
+  background: white;
+  color: var(--primary);
+  border: 2px solid var(--primary-light);
+}
+
+.btn-outline-primary:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-sm {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.875rem;
+  gap: 0.4rem;
+}
+
 /* Animations */
 @keyframes fadeInUp {
   from {

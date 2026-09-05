@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import './BookDemo.css';
+import { getFirebaseDatabase, isFirebaseConfigured } from '../lib/firebase';
+import { createItem } from '../services/rtdb';
 
 const BookDemo = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +13,9 @@ const BookDemo = () => {
         message: ''
     });
 
+    const db = useMemo(() => getFirebaseDatabase(), []);
+    const firebaseReady = isFirebaseConfigured() && Boolean(db);
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -18,10 +23,25 @@ const BookDemo = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Simulate form submission
-        alert('Thank you! Your demo request has been received. Our team will contact you shortly.');
+        if (!firebaseReady) {
+            alert('Firebase is not configured yet. Please add your Firebase keys to .env.local and restart the dev server.');
+            return;
+        }
+
+        try {
+            await createItem(db, 'demoRequests', {
+                ...formData,
+                status: 'Pending',
+                createdAt: new Date().toISOString(),
+            });
+            alert('Thank you! Your demo request has been received. Our team will contact you shortly.');
+        } catch (err) {
+            console.error(err);
+            alert('Sorry, something went wrong while saving your request. Please try again.');
+            return;
+        }
         setFormData({ parentName: '', studentName: '', phone: '', grade: '', subject: '', message: '' });
     };
 
@@ -54,6 +74,11 @@ const BookDemo = () => {
                     <div className="book-demo-form-wrapper">
                         <div className="form-card">
                             <h2>Book Your Free Demo</h2>
+                            {!firebaseReady && (
+                                <div className="text-muted" style={{ marginBottom: 12 }}>
+                                    Firebase is not configured. Add your keys to `.env.local` (see `.env.example`) and restart the dev server.
+                                </div>
+                            )}
                             <form onSubmit={handleSubmit} className="demo-form">
                                 <div className="form-group row">
                                     <div className="col">

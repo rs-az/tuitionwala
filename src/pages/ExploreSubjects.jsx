@@ -1,51 +1,34 @@
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './ExploreSubjects.css';
+import { getFirebaseDatabase, isFirebaseConfigured } from '../lib/firebase';
+import { subscribeList } from '../services/rtdb';
 
 const ExploreSubjects = () => {
-    const categories = [
-        {
-            title: "Primary (Class 1-5)",
-            description: "Building a strong foundation in core subjects with interactive learning.",
-            subjects: ["All Subjects", "Mathematics", "EVS / Science", "English", "Hindi"],
-            icon: "fa-child",
-            color: "var(--primary)"
-        },
-        {
-            title: "Middle School (Class 6-8)",
-            description: "Developing conceptual clarity and critical thinking skills.",
-            subjects: ["Mathematics", "Science", "English", "Social Studies", "Hindi", "Computer Science"],
-            icon: "fa-book-open",
-            color: "#10b981" // emerald
-        },
-        {
-            title: "High School (Class 9-10)",
-            description: "Comprehensive preparation for board exams with expert guidance.",
-            subjects: ["Mathematics", "Physics", "Chemistry", "Biology", "English", "Social Science"],
-            icon: "fa-graduation-cap",
-            color: "#f59e0b" // amber
-        },
-        {
-            title: "Senior Secondary (Class 11-12)",
-            description: "Specialized tutoring for science, commerce, and humanities streams.",
-            subjects: ["Physics", "Chemistry", "Mathematics", "Biology", "Accountancy", "Economics", "Business Studies", "History"],
-            icon: "fa-university",
-            color: "#ef4444" // red
-        },
-        {
-            title: "Competitive Exams",
-            description: "Targeted coaching for top-tier entrance examinations.",
-            subjects: ["IIT-JEE (Mains & Advanced)", "NEET", "CUET", "NDA", "Olympiads"],
-            icon: "fa-trophy",
-            color: "#8b5cf6" // violet
-        },
-        {
-            title: "Spoken English & Skills",
-            description: "Enhance communication, personality, and specialized skills.",
-            subjects: ["Spoken English", "Personality Development", "French / German", "Coding for Kids"],
-            icon: "fa-language",
-            color: "#ec4899" // pink
-        }
-    ];
+    const [categories, setCategories] = useState([]);
+    const [loadError, setLoadError] = useState('');
+
+    const db = useMemo(() => getFirebaseDatabase(), []);
+    const firebaseReady = isFirebaseConfigured() && Boolean(db);
+
+    useEffect(() => {
+        if (!firebaseReady) return;
+        const unsub = subscribeList(
+            db,
+            'subjects/categories',
+            (list) => {
+                const active = list
+                    .filter((c) => (c.status || 'active') === 'active')
+                    .sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+                setCategories(active);
+            },
+            (err) => {
+                console.error(err);
+                setLoadError('Failed to load subjects.');
+            },
+        );
+        return () => unsub();
+    }, [db, firebaseReady]);
 
     return (
         <div className="page-container explore-subjects-page">
@@ -62,19 +45,29 @@ const ExploreSubjects = () => {
             </div>
 
             <div className="container">
+                {!firebaseReady && (
+                    <div className="text-muted" style={{ margin: '12px 0' }}>
+                        Firebase is not configured. Add your keys to `.env.local` (see `.env.example`) and restart the dev server.
+                    </div>
+                )}
+                {loadError && (
+                    <div className="text-danger" style={{ margin: '12px 0' }}>
+                        {loadError}
+                    </div>
+                )}
                 <div className="subjects-grid">
                     {categories.map((category, index) => (
                         <div className="subject-category-card" key={index}>
                             <div className="category-header">
                                 <div className="category-icon" style={{ backgroundColor: `${category.color}20`, color: category.color }}>
-                                    <i className={`fas ${category.icon}`}></i>
+                                    <i className={`fas ${category.icon || 'fa-book'}`}></i>
                                 </div>
                                 <h2>{category.title}</h2>
                             </div>
                             <p className="category-desc">{category.description}</p>
 
                             <div className="subject-tags">
-                                {category.subjects.map((subject, idx) => (
+                                {(category.subjects || []).map((subject, idx) => (
                                     <span className="subject-tag" key={idx}>{subject}</span>
                                 ))}
                             </div>

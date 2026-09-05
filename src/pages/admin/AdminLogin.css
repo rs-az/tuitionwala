@@ -123,6 +123,10 @@
     color: rgba(255, 255, 255, 0.35);
 }
 
+.login-form-group .password-input input {
+    padding-right: 2.75rem;
+}
+
 .login-form-group input:focus {
     outline: none;
     border-color: var(--primary);

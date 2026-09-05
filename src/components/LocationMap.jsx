@@ -20,7 +20,7 @@ const LocationMap = () => {
                             </div>
                             <div className="contact-info">
                                 <h3>Our Location</h3>
-                                <p>TuitionWala 19A_Allebgang Near Church<br />Prabhu Enclave Prayagraj</p>
+                                <p>TuitionWala 19A Allenganj, Near Church<br />Prabhu Enclave Prayagraj</p>
                             </div>
                         </div>
 

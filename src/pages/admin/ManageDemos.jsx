@@ -1,13 +1,49 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './AdminForms.css';
+import { getFirebaseDatabase, isFirebaseConfigured } from '../../lib/firebase';
+import { subscribeList, updateItem } from '../../services/rtdb';
 
 const ManageDemos = () => {
-    const [demos] = useState([
-        { id: 1, parentName: "Ravi Kumar", studentName: "Aaryan Kumar", phone: "9876543210", subject: "Mathematics", grade: "10th", status: "Pending", date: "2024-03-05" },
-        { id: 2, parentName: "Priya Singh", studentName: "Riya Singh", phone: "9123456789", subject: "Science", grade: "8th", status: "Contacted", date: "2024-03-04" },
-        { id: 3, parentName: "Amit Verma", studentName: "Neha Verma", phone: "8182837919", subject: "Physics", grade: "11th", status: "Scheduled", date: "2024-03-02" },
-        { id: 4, parentName: "Neha Gupta", studentName: "Rahul Gupta", phone: "7000123456", subject: "English", grade: "6th", status: "Closed", date: "2024-03-01" },
-    ]);
+    const [demos, setDemos] = useState([]);
+    const [loadError, setLoadError] = useState('');
+
+    const db = useMemo(() => getFirebaseDatabase(), []);
+    const firebaseReady = isFirebaseConfigured() && Boolean(db);
+
+    useEffect(() => {
+        if (!firebaseReady) return;
+        const unsub = subscribeList(
+            db,
+            'demoRequests',
+            (list) => {
+                const sorted = [...list].sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+                setDemos(sorted);
+            },
+            (err) => {
+                console.error(err);
+                setLoadError('Failed to load demo requests from database.');
+            },
+        );
+        return () => unsub();
+    }, [db, firebaseReady]);
+
+    const handleStatusChange = async (id, nextStatus) => {
+        if (!firebaseReady) return;
+        setLoadError('');
+        try {
+            await updateItem(db, `demoRequests/${id}`, { status: nextStatus, updatedAt: new Date().toISOString() });
+        } catch (e) {
+            console.error(e);
+            setLoadError('Failed to update status.');
+        }
+    };
+
+    const formatDate = (iso) => {
+        if (!iso) return '';
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return iso;
+        return d.toISOString().slice(0, 10);
+    };
 
     return (
         <div className="manage-page">
@@ -19,6 +55,16 @@ const ManageDemos = () => {
             </div>
 
             <div className="admin-card">
+                {!firebaseReady && (
+                    <div className="text-muted" style={{ padding: 12 }}>
+                        Firebase is not configured. Add your keys to `.env.local` (see `.env.example`) and restart the dev server.
+                    </div>
+                )}
+                {loadError && (
+                    <div className="text-danger" style={{ padding: 12 }}>
+                        {loadError}
+                    </div>
+                )}
                 <div className="table-responsive">
                     <table className="admin-table">
                         <thead>
@@ -34,7 +80,7 @@ const ManageDemos = () => {
                         <tbody>
                             {demos.map(demo => (
                                 <tr key={demo.id}>
-                                    <td>{demo.date}</td>
+                                    <td>{formatDate(demo.createdAt)}</td>
                                     <td>
                                         <strong>{demo.parentName}</strong>
                                         <div className="text-sm text-muted">Child: {demo.studentName}</div>
@@ -44,18 +90,16 @@ const ManageDemos = () => {
                                     </td>
                                     <td>{demo.grade} - {demo.subject}</td>
                                     <td>
-                                        <span className={`status-badge ${demo.status.toLowerCase()}`}>
+                                        <span className={`status-badge ${(demo.status || '').toLowerCase()}`}>
                                             {demo.status}
                                         </span>
                                     </td>
                                     <td>
                                         <select
                                             className="status-dropdown"
-                                            defaultValue={demo.status}
-                                            onChange={(e) => {
-                                                // Normally this would be a state update + API call
-                                                console.log(`Update ${demo.id} to ${e.target.value}`)
-                                            }}
+                                            value={demo.status || 'Pending'}
+                                            onChange={(e) => handleStatusChange(demo.id, e.target.value)}
+                                            disabled={!firebaseReady}
                                         >
                                             <option value="Pending">Pending</option>
                                             <option value="Contacted">Contacted</option>

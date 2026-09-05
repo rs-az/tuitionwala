@@ -203,6 +203,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    gap: 1rem;
 }
 
 .admin-page-title {
@@ -242,5 +243,18 @@
 @media (max-width: 576px) {
     .admin-content-area {
         padding: 1.5rem 1rem;
+    }
+
+    .admin-page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .topbar-right .admin-profile span {
+        display: none;
+    }
+
+    .btn-logout span {
+        display: none;
     }
 }

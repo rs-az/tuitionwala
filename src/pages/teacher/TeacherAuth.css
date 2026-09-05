@@ -1,0 +1,81 @@
+.teacher-auth-page {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 1rem 4rem;
+}
+
+.teacher-auth-card {
+  width: min(560px, 92vw);
+  background: var(--card, #fff);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
+}
+
+.teacher-auth-card h1 {
+  font-size: 26px;
+  margin: 0 0 6px;
+}
+
+.teacher-auth-subtitle {
+  margin: 0 0 18px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.teacher-auth-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.teacher-auth-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.teacher-auth-form label {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.teacher-auth-form input,
+.teacher-auth-form textarea {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.teacher-auth-form .password-input input {
+  padding-right: 2.75rem;
+}
+
+.teacher-auth-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.teacher-auth-error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #b91c1c;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 560px) {
+  .teacher-auth-form .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+

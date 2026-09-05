@@ -17,6 +17,7 @@ const AdminLayout = () => {
         { path: '/admin/jobs', label: 'Manage Jobs', icon: 'fa-briefcase' },
         { path: '/admin/demos', label: 'Demo Requests', icon: 'fa-calendar-check' },
         { path: '/admin/subjects', label: 'Manage Subjects', icon: 'fa-book' },
+        { path: '/admin/teachers', label: 'Teachers', icon: 'fa-chalkboard-teacher' },
     ];
 
     return (
